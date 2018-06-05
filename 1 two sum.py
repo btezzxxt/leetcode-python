@@ -15,12 +15,6 @@ class Solution:
             else:
                 hashset.add(target-nums[i])
             
-
-
-
-
-
-
 print (__name__)
    
 if __name__ == "__main__":
