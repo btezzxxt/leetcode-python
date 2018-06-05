@@ -21,7 +21,7 @@ class Solution(object):
                 if target_index != cur_index:
                     nums[cur_index] = -1
                 return False
-            
+
             if nums[target_index] <= 0:
                 temp = nums[target_index]
                 nums[target_index] = nums[cur_index]
@@ -33,7 +33,7 @@ class Solution(object):
                 nums[cur_index] = temp
                 return True
             return False
-        
+
         if (len(nums) == 0):
             return 1
 
@@ -44,7 +44,7 @@ class Solution(object):
             if target_index == i:
                 # right position
                 continue
-            
+
             if cur_value <= 0:
                 continue
             else:
@@ -54,18 +54,13 @@ class Solution(object):
                 while checkAndReplace(i, nums):
                     continue
                 continue
-        
+
         for i in range(len(nums)):
             if nums[i] <= 0:
                 return i + 1
-        
+
         return len(nums) + 1
 
-print(Solution().firstMissingPositive([2,1]))    
-                
-
-                
-
-
+print(Solution().firstMissingPositive([2,1]))
 ```
 
