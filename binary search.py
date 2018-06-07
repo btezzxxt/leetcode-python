@@ -11,8 +11,6 @@ def bs_min_i_eq_key(nums, key):
         return r
     return -1
 
-print(bs_min_i_eq_key([1,1,2,3,3,3,3,4,5,5], 5), "\n")
-
 def bs_max_i_eq_key(nums, key):
     l = 0
     r = len(nums)-1
@@ -25,8 +23,6 @@ def bs_max_i_eq_key(nums, key):
     if nums[l] == key:
         return l
     return -1
-
-print(bs_max_i_eq_key([1,1,2,3,3,3,3,4,5,5], 5), "\n")
 
 def bs_min_i_gt_key(nums, key):
     l = 0 
@@ -41,8 +37,6 @@ def bs_min_i_gt_key(nums, key):
         return r
     return -1
 
-print(bs_min_i_gt_key([1,1,2,3,3,3,3,4,5,5], 2), "\n")
-
 def bs_max_i_lt_key(nums, key):
     l = 0
     r = len(nums) -1
@@ -56,6 +50,9 @@ def bs_max_i_lt_key(nums, key):
         return l
     return -1
 
+print(bs_min_i_eq_key([1,1,2,3,3,3,3,4,5,5], 5), "\n")
+print(bs_max_i_eq_key([1,1,2,3,3,3,3,4,5,5], 5), "\n")
+print(bs_min_i_gt_key([1,1,2,3,3,3,3,4,5,5], 2), "\n")
 print(bs_max_i_lt_key([1,1,2,3,3,3,3,4,5,5], 0), "\n")
 
 
