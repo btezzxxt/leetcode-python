@@ -67,6 +67,9 @@ class Solution:
                 return r
             return -1
 
+        if len(intervals) == 0:
+            return [newInterval]
+        
         left = bs_i_max_eq_key(intervals, newInterval.start)
         if left == -1:
             left = bs_i_max_lt_key(intervals, newInterval.start)
@@ -75,29 +78,38 @@ class Solution:
         if right == -1:
             right = bs_i_min_gt_key(intervals, newInterval.end)
         
-        if left == -1 or right == -1:
-            return intervals
+        if left == -1 and right == -1:
+            return [newInterval]
         else:
-            lInterval = intervals[left]
-            rInterval = intervals[right]
-            newStart = 0
-            newEnd = 0
-            leftPart = intervals[:left]
-            rightPart = intervals[right+1:]
-            if lInterval.end > newInterval.start:
-                newStart = lInterval.start
-            else:
-                leftPart.append(lInterval)
+            if left == -1:
+                lInterval = []
                 newStart = newInterval.start
-            
-            if rInterval.start < newInterval.end:
-                newEnd = rInterval.end
-                leftPart.append(Interval(newStart, newEnd))
             else:
+                lInterval = intervals[left]
+                newStart = 0
+                leftPart = intervals[:left]
+                if lInterval.end >= newInterval.start:
+                    newStart = lInterval.start
+                else:
+                    leftPart.append(lInterval)
+                    newStart = newInterval.start 
+ 
+            if right == -1:
                 newEnd = newInterval.end
                 leftPart.append(Interval(newStart, newEnd))
-                leftPart.append(intervals[right])
-            return leftPart + rightPart
+            else:
+                rInterval = intervals[right]
+                newEnd = 0
+                rightPart = intervals[right+1:]
+                if rInterval.start <= newInterval.end:
+                    newEnd = rInterval.end
+                    leftPart.append(Interval(newStart, newEnd))
+                else:
+                    newEnd = newInterval.end
+                    leftPart.append(Interval(newStart, newEnd))
+                    leftPart.append(intervals[right])
+                    leftPart += rightPart
+            return leftPart
 
 print(Solution().insert([Interval(1,3),Interval(6,9)], Interval(2,5)))
 
