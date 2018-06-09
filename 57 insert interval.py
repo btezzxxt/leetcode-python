@@ -1,3 +1,5 @@
+# O(logn) time complexity, beats 99.68% :p
+
 # Definition for an interval.
 class Interval:
     def __init__(self, s=0, e=0):
@@ -78,42 +80,34 @@ class Solution:
         if right == -1:
             right = bs_i_min_gt_key(intervals, newInterval.end)
         
-        if left == -1 and right == -1:
-            return [newInterval]
+
+        leftPart = []
+        if left == -1:
+            newStart = newInterval.start
         else:
-            if left == -1:
-                lInterval = []
-                newStart = newInterval.start
+            lInterval = intervals[left]
+            leftPart = intervals[:left]
+            if lInterval.end >= newInterval.start:
+                newStart = lInterval.start
             else:
-                lInterval = intervals[left]
-                newStart = 0
-                leftPart = intervals[:left]
-                if lInterval.end >= newInterval.start:
-                    newStart = lInterval.start
-                else:
-                    leftPart.append(lInterval)
-                    newStart = newInterval.start 
- 
-            if right == -1:
-                newEnd = newInterval.end
+                leftPart.append(lInterval)
+                newStart = newInterval.start 
+        if right == -1:
+            newEnd = newInterval.end
+            leftPart.append(Interval(newStart, newEnd))
+        else:
+            rInterval = intervals[right]
+            rightPart = intervals[right+1:]
+            if rInterval.start <= newInterval.end:
+                newEnd = rInterval.end
                 leftPart.append(Interval(newStart, newEnd))
             else:
-                rInterval = intervals[right]
-                newEnd = 0
-                rightPart = intervals[right+1:]
-                if rInterval.start <= newInterval.end:
-                    newEnd = rInterval.end
-                    leftPart.append(Interval(newStart, newEnd))
-                else:
-                    newEnd = newInterval.end
-                    leftPart.append(Interval(newStart, newEnd))
-                    leftPart.append(intervals[right])
-                    leftPart += rightPart
-            return leftPart
+                newEnd = newInterval.end
+                leftPart.append(Interval(newStart, newEnd))
+                leftPart.append(intervals[right])
+            leftPart += rightPart
+        return leftPart
 
 print(Solution().insert([Interval(1,3),Interval(6,9)], Interval(2,5)))
-
-print(Interval(1,3))
-
 
 
